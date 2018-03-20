@@ -24,10 +24,8 @@ export default {
         },
         saveInfo:function () {
           console.log(this.editorContent)
-          let arr = [];
-          arr.push(this.editorContent);
           axios.post('/test',{
-            content:arr
+            content:this.editorContent
           }).then((response)=>{
             let res = response.data;
             console.log(res);

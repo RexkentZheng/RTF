@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: "50mb"}));
 app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
-var sequelize = new Sequelize('test', 'root', 'root', {
+var sequelize = new Sequelize('test', 'root', '', {
   host: "127.0.0.1",
   dialect: 'mysql',
   port: 3306
@@ -24,7 +24,7 @@ var Content = sequelize.define('rtf', {
     autoIncrement: true,
   },
   content: {
-    type: Sequelize.STRING.BINARY,
+    type: Sequelize.STRING(10000000000000),
   }
 }, {
   operatorsAliases: false,
@@ -33,11 +33,11 @@ var Content = sequelize.define('rtf', {
 
 router.post('/test',(req,res,next)=>{
   console.log('----------');
-  let {arr} = req.body;
-  console.log(req.body);
+  let content = req.body.content;
+  console.log(req.body.content);
   Content.sync({force: true}).then(function () {
     return Content.create({
-      content: arr[0]
+      content: content
     });
   });
 })
