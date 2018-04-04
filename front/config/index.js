@@ -19,8 +19,8 @@ module.exports = {
     errorOverlay: true,
     notifyOnErrors: true,
     proxyTable:{
-      '/test/*':{
-        target:'http://127.0.0.1:3001/'
+      '/articles/*':{
+        target:'http://127.0.0.1:2334/'
       }
     },
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-

@@ -3,6 +3,7 @@
     <div id="editorElem" style="text-align:left"></div>
     <button v-on:click="getContent">查看内容</button>
     <button @click="saveInfo()">存储信息</button>
+    <div v-if="longText" v-html="longText"></div>
   </div>
 </template>
 
@@ -15,7 +16,8 @@ export default {
       name: 'editor',
       data () {
         return {
-          editorContent: ''
+          editorContent: '',
+          longText:''
         }
       },
       methods: {
@@ -24,11 +26,11 @@ export default {
         },
         saveInfo:function () {
           console.log(this.editorContent)
-          axios.post('/test',{
+          axios.post('/articles',{
             content:this.editorContent
           }).then((response)=>{
             let res = response.data;
-            console.log(res);
+            this.longText = res.result.articleContent;
           })
         }
       },
